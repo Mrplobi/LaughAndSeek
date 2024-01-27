@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class Flashlight : MonoBehaviour
 {
+    //Event to trigger laugh when light is turned off
+    public UnityEvent<bool> flashlightChanged;
+
     [SerializeField]
     Light lightCone;
     [SerializeField]
@@ -36,6 +40,9 @@ public class Flashlight : MonoBehaviour
             lightParent.SetActive(isActive);
             clickSound.clip = isActive? onSound : offSound;
             clickSound.Play();
+
+            if (isActive) flashlightChanged.Invoke(true); 
+            else flashlightChanged.Invoke(false);
         }
 
         if (!isActive || turningOff) return;

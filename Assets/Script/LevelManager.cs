@@ -54,4 +54,21 @@ public class LevelManager : MonoBehaviour
         currentLevel++;
         StartRound();
     }
+
+    public void OnFlashlightChanged(bool isOn)
+    {
+        if (isOn)
+        {
+            PlayLaugh();
+        }
+        else
+        {
+
+        }
+    }
+
+    private void PlayLaugh()
+    {
+        _clown.PlayLaugh();
+    }
 }

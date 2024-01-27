@@ -18,4 +18,9 @@ public class Clown : MonoBehaviour
     {
         onHit.Invoke();
     }
+
+    public void PlayLaugh()
+    {
+        this.GetComponentInChildren<AudioSource>().Play();  
+    }
 }
