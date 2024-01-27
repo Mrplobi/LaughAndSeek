@@ -3917,7 +3917,7 @@ AudioSource:
   m_GameObject: {fileID: 271441879}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6101204641793683965, guid: da5025f9575279d46b4fb61a1aead641, type: 2}
   m_audioClip: {fileID: 8300000, guid: 49691792780d469499c67c5596b21812, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -4468,6 +4468,10 @@ PrefabInstance:
       propertyPath: flashlightChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8721310065553506430, guid: e5c997c1ee49faf4c96f6d448a4e23ee, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 1464248962838161552, guid: da5025f9575279d46b4fb61a1aead641, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -8919,7 +8923,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.272
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -9010,12 +9014,12 @@ AudioSource:
   m_GameObject: {fileID: 639955776}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7900427028491930809, guid: da5025f9575279d46b4fb61a1aead641, type: 2}
   m_audioClip: {fileID: 8300000, guid: 868619d9304f28b45a901e9a1384e6cf, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.066
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
