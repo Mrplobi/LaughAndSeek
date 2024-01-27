@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField]
     Clown _clown;
 
     [SerializeField]
@@ -14,7 +13,6 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        _clown.onHit += ClownFound;
         StartRound();
     }
 
@@ -22,6 +20,10 @@ public class LevelManager : MonoBehaviour
     {
         if (currentLevel >= levelScripts.Count)
             return;
+
+        var selectedClown = levelScripts[currentLevel].allowedClowns[Random.Range(0, levelScripts[currentLevel].allowedClowns.Count)];
+        _clown = Instantiate(selectedClown).GetComponent<Clown>();
+        _clown.onHit += ClownFound;
 
         var spawns = levelScripts[currentLevel].levelSpawnNames;
         string spawnChosen = spawns[Random.Range(0, spawns.Count)];

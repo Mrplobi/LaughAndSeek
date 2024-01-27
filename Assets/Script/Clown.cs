@@ -9,17 +9,15 @@ public class Clown : MonoBehaviour
 
     [SerializeField]
     Vector3 spawnOffset = Vector3.zero;
-
-    public void Hit()
-    {
-        gameObject.SetActive(false);
-        onHit.Invoke();
-    }
-
     public void Spawn(Transform spawnPosition)
     {
         transform.SetParent(spawnPosition);
         transform.localPosition = spawnOffset;
-        gameObject.SetActive(true);
+    }
+    public void Hit()
+    {
+        gameObject.SetActive(false);
+        onHit.Invoke();
+        Destroy(this.gameObject);
     }
 }
