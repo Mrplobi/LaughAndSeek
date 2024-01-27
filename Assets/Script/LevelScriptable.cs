@@ -6,4 +6,6 @@ using UnityEngine;
 public class LevelScriptable : ScriptableObject
 {
     public List<string> levelSpawnNames = new List<string>();
+
+    public List<GameObject> allowedClowns = new List<GameObject>();
 }

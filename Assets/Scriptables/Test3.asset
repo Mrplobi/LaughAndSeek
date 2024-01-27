@@ -16,3 +16,6 @@ MonoBehaviour:
   - pos3-1
   - pos3-2
   - pos3-3
+  allowedClowns:
+  - {fileID: 4919629037357113111, guid: df3655b310684764a9edbef88e176e88, type: 3}
+  - {fileID: 4533680169398713476, guid: f4c2456c779e20344aa5568c9314172c, type: 3}
