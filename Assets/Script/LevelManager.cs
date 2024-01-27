@@ -83,7 +83,10 @@ public class LevelManager : MonoBehaviour
     void StartRound()
     {
         if (currentLevel >= levelScripts.Count)
+        {
+            StartCoroutine(WinCoroutine());
             return;
+        }
 
         if(_clown == null)
         {
@@ -122,7 +125,15 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(TitleCardCoroutine());
+            if(titleCardSeen)
+            {
+                gameStarted = true;
+                StartRound();
+            }
+            else
+            {
+                StartCoroutine(TitleCardCoroutine());
+            }
         }
     }
 
@@ -175,6 +186,7 @@ public class LevelManager : MonoBehaviour
 
     private void PlacePlayer(Transform newPlace)
     {
+        playerObject.GetComponent<CharacterController>().enabled = false;
         playerObject.transform.position = newPlace.position;
         playerObject.transform.rotation = newPlace.rotation;
         playerObject.Fade(true);
@@ -229,6 +241,7 @@ public class LevelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
+        titleCardSeen = true;
         PlacePlayer(darkSphere);
         titleCard.SetActive(true);
 
@@ -239,5 +252,17 @@ public class LevelManager : MonoBehaviour
         gameStarted = true;
 
         StartRound();
+    }
+
+    IEnumerator WinCoroutine()
+    {        
+        yield return new WaitForSeconds(0.2f);
+
+        gameStarted = false;
+        lightOn = false;
+        playerObject.Reset();
+        ResetAllTimers();
+        currentLevel = 0;
+        SetUpMainMenu();
     }
 }

@@ -14,9 +14,12 @@ public class BlinkingLight : MonoBehaviour
 
     float previousDelay = 0.5f;
 
-    private void Start()
+    private void OnEnable()
     {
-        blinker = GetComponent<Light>();
+        if(blinker == null )
+        {
+            blinker = GetComponent<Light>();
+        }
         StartBlink();
     }
 
