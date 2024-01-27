@@ -7,11 +7,15 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField]
     GameObject clownPrefab;
-
     Clown _clown;
 
     [SerializeField]
     List<LevelScriptable> levelScripts;
+
+    [SerializeField]
+    Transform playerStart;
+    [SerializeField]
+    GameObject playerObject;
 
     int currentLevel = 0;
 
@@ -24,6 +28,9 @@ public class LevelManager : MonoBehaviour
     {
         if (currentLevel >= levelScripts.Count)
             return;
+
+        playerObject.transform.position = playerStart.position;
+        playerObject.transform.rotation = playerStart.rotation;
 
         if(_clown == null)
         {
