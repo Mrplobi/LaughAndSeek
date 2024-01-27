@@ -20,4 +20,9 @@ public class Clown : MonoBehaviour
         onHit.Invoke();
         Destroy(this.gameObject);
     }
+
+    public void PlayLaugh()
+    {
+        this.GetComponentInChildren<AudioSource>().Play();  
+    }
 }

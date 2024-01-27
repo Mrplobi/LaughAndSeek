@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioPlayer : MonoBehaviour
+public class FootstepAudioPlayer : MonoBehaviour
 {
 
     private bool isSoundPlaying = false;
@@ -19,11 +19,8 @@ public class AudioPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(characterController.velocity.magnitude);
         if (characterController.velocity.magnitude >= 0.05f && isSoundPlaying==false)
         {
-
-            Debug.Log("player is moving");
             audioSourceFootsteps.Play();
             isSoundPlaying = true;
         }
