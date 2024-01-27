@@ -10,13 +10,7 @@ public class FootstepAudioPlayer : MonoBehaviour
     private CharacterController characterController;
     [SerializeField]
     private AudioSource audioSourceFootsteps;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (characterController.velocity.magnitude >= 0.05f && isSoundPlaying==false)

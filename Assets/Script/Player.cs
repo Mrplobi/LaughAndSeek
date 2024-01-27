@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
 
-public class Flashlight : MonoBehaviour
+public class Player : MonoBehaviour
 {
     //Event to trigger laugh when light is turned off
     public UnityEvent<bool> flashlightChanged;
@@ -21,6 +21,8 @@ public class Flashlight : MonoBehaviour
     AudioClip onSound;
     [SerializeField]
     AudioClip offSound;
+    [SerializeField]
+    Material fadeMat;
 
     bool isActive = true;
 
@@ -91,7 +93,19 @@ public class Flashlight : MonoBehaviour
 
     public void EndLevel(Clown clown)
     {
-        //Fade out
+        Fade(false);
         clown.Hit();
+    }
+
+    public void Fade(bool fadeIn)
+    {
+        if(fadeIn)
+        {
+            fadeMat.DOColor(Color.clear, 0.2f).SetEase(Ease.OutQuart);
+        }
+        else
+        {
+            fadeMat.DOColor(Color.black, 0.2f).SetEase(Ease.OutQuart);
+        }
     }
 }

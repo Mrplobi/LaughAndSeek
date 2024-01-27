@@ -138,9 +138,8 @@ GameObject:
   - component: {fileID: 8791438424407410616}
   - component: {fileID: 5180758479435975050}
   - component: {fileID: 8069869095489679984}
-  - component: {fileID: 2483772902855213256}
   m_Layer: 0
-  m_Name: Flashlight
+  m_Name: FlashLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,24 +214,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2483772902855213256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4350322870970391654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dbfff2f9aa15984592998c935d526fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lightCone: {fileID: 563654662464727763}
-  clickSound: {fileID: 7403935577896807579}
-  RaycastStart: {fileID: 3324474812535696816}
-  onSound: {fileID: 8300000, guid: bc1424225cbf3c0409c7b22babcb5fc8, type: 3}
-  offSound: {fileID: 8300000, guid: e9e75ff3e9f759c428a050c73a4b8d1c, type: 3}
-  validateTime: 0.5
 --- !u!1 &5430740693118928508
 GameObject:
   m_ObjectHideFlags: 0
