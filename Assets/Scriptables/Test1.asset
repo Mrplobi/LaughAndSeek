@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7a143e34636e46469cc35000bfec446, type: 3}
   m_Name: Test1
   m_EditorClassIdentifier: 
-  levelSpawnNames:
-  - pos1-1
-  - pos1-2
-  - pos1-3
-  allowedClowns:
-  - {fileID: 4919629037357113111, guid: df3655b310684764a9edbef88e176e88, type: 3}
+  levelSpawns:
+  - spawnName: pos1-1
+    spawnOffset: {x: 0, y: 0.9, z: 0}
+    spawnScale: {x: 1, y: 1, z: 1}
+  - spawnName: pos1-2
+    spawnOffset: {x: 0, y: 0, z: 0}
+    spawnScale: {x: 3, y: 3, z: 3}
+  - spawnName: pos1-3
+    spawnOffset: {x: 0, y: 2, z: 0}
+    spawnScale: {x: 0.5, y: 0.5, z: 0.5}

@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField]
+    GameObject clownPrefab;
+
     Clown _clown;
 
     [SerializeField]
@@ -21,19 +25,19 @@ public class LevelManager : MonoBehaviour
         if (currentLevel >= levelScripts.Count)
             return;
 
-        var selectedClown = levelScripts[currentLevel].allowedClowns[Random.Range(0, levelScripts[currentLevel].allowedClowns.Count)];
-        _clown = Instantiate(selectedClown).GetComponent<Clown>();
-        _clown.onHit += ClownFound;
+        if(_clown == null)
+        {
+            _clown = Instantiate(clownPrefab).GetComponent<Clown>();
+            _clown.onHit += ClownFound;
+        }
 
-        var spawns = levelScripts[currentLevel].levelSpawnNames;
-        string spawnChosen = spawns[Random.Range(0, spawns.Count)];
-        SpawnClown(spawnChosen);
+        var spawn = levelScripts[currentLevel].GetRandomSpawn();
+        SpawnClown(spawn);
     }
 
-    public void SpawnClown(string spawnName)
+    public void SpawnClown(SpawnInfo spawn)
     {
-        var spawn = GameObject.Find(spawnName);
-        _clown.Spawn(spawn.transform);
+        _clown.Spawn(spawn);
     }
 
     public void ClownFound()

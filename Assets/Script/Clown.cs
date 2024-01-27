@@ -7,12 +7,12 @@ public class Clown : MonoBehaviour
     public delegate void HitEvent();
     public HitEvent onHit;
 
-    [SerializeField]
-    Vector3 spawnOffset = Vector3.zero;
-    public void Spawn(Transform spawnPosition)
+    public void Spawn(SpawnInfo spawn)
     {
-        transform.SetParent(spawnPosition);
-        transform.localPosition = spawnOffset;
+        var spawnGO = GameObject.Find(spawn.spawnName);
+        transform.SetParent(spawnGO.transform);
+        transform.localPosition = spawn.spawnOffset;
+        transform.localScale = spawn.spawnScale;
     }
     public void Hit()
     {

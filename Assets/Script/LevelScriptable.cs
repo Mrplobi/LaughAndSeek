@@ -5,7 +5,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelScript", menuName = "Scriptables/Level")]
 public class LevelScriptable : ScriptableObject
 {
-    public List<string> levelSpawnNames = new List<string>();
+    public List<SpawnInfo> levelSpawns = new List<SpawnInfo>();
 
-    public List<GameObject> allowedClowns = new List<GameObject>();
+    public SpawnInfo GetRandomSpawn()
+    {
+        return levelSpawns[Random.Range(0, levelSpawns.Count)];
+    }
+}
+
+[System.Serializable]
+public class SpawnInfo
+{
+    public string spawnName;
+    public Vector3 spawnOffset;
+    public Vector3 spawnScale = Vector3.one;
 }
