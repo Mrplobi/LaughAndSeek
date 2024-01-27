@@ -63,7 +63,7 @@ public class LevelManager : MonoBehaviour
             globalDeathTimer += Time.deltaTime;
             if( darknessDeathTimer > darknessDeathTime || globalDeathTimer > globalDeathTime )
             {
-                //DED
+                Death();
             }
         }
     }
@@ -91,7 +91,7 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         PlacePlayer(playerStart);
-
+        playerObject.GetComponent<CharacterController>().enabled = true;
     }
 
     public void SpawnClown(SpawnInfo spawn)
@@ -188,5 +188,10 @@ public class LevelManager : MonoBehaviour
     {
         globalDeathTimer = 0;
         darknessDeathTimer = 0;
+    }
+
+    void Death()
+    {
+        playerObject.GetComponent<CharacterController>().enabled = false;
     }
 }
