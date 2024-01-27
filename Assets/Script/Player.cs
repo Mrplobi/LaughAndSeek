@@ -106,11 +106,11 @@ public class Player : MonoBehaviour
         {
             turningOff = false;
             lightParent.SetActive(isActive);
-            fadeMat.DOColor(Color.clear, 0.5f).SetEase(Ease.OutQuart);
+            fadeMat.DOColor(Color.clear, 0.2f).SetEase(Ease.OutQuart);
         }
         else
         {
-            fadeMat.DOColor(Color.black, 0.5f).SetEase(Ease.OutQuart);
+            fadeMat.DOColor(Color.black, 0.2f).SetEase(Ease.OutQuart);
         }
     }
 }

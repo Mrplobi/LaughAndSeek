@@ -17,10 +17,14 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     Player playerObject;
 
+    [SerializeField]
+    Transform darkSphere;
+
     int currentLevel = 0;
 
     bool transitioning = false;
     bool inDarkness = false;
+
 
     #region Death
     float globalDeathTimer = 0;
@@ -35,21 +39,29 @@ public class LevelManager : MonoBehaviour
     #region MainMenu
     bool gameStarted = false;
     bool lightOn = false;
+    bool titleCardSeen = false;
+
     [SerializeField]
     Transform menuStart;
     [SerializeField]
     GameObject outsideLights;
-    [SerializeField]
+
     Clown outsideClown;
+    [SerializeField]
+    Transform outsideClownPosition;
     [SerializeField]
     GameObject flashlightInstruction;
     [SerializeField]
     GameObject gameInstructions;
+
+    [SerializeField]
+    GameObject titleCard;
     #endregion
 
     private void Start()
     {
         SetUpMainMenu();
+        playerObject.transitionStart.AddListener(StartTransition);
     }
 
     private void Update()
@@ -73,7 +85,6 @@ public class LevelManager : MonoBehaviour
         if (currentLevel >= levelScripts.Count)
             return;
 
-
         if(_clown == null)
         {
             _clown = Instantiate(clownPrefab).GetComponent<Clown>();
@@ -90,8 +101,11 @@ public class LevelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
+        ResetAllTimers();
+        transitioning = false;
         PlacePlayer(playerStart);
         playerObject.GetComponent<CharacterController>().enabled = true;
+        ResetAllTimers();
     }
 
     public void SpawnClown(SpawnInfo spawn)
@@ -104,12 +118,12 @@ public class LevelManager : MonoBehaviour
         if(gameStarted)
         {
             currentLevel++;
+            StartRound();
         }
         else
         {
-            gameStarted = true;
+            StartCoroutine(TitleCardCoroutine());
         }
-        StartRound();
     }
 
     public void OnFlashlightChanged(bool isOn)
@@ -171,7 +185,6 @@ public class LevelManager : MonoBehaviour
         PlacePlayer(menuStart);
         flashlightInstruction.SetActive(true);
         outsideLights.SetActive(true);
-        outsideClown.gameObject.SetActive(false);
         gameInstructions.SetActive(false);
     }
 
@@ -180,8 +193,16 @@ public class LevelManager : MonoBehaviour
         flashlightInstruction.SetActive(false);
         outsideLights.SetActive(false);
         gameInstructions.SetActive(true);
-        outsideClown.gameObject.SetActive(true);
+        outsideClown = Instantiate(clownPrefab).GetComponent<Clown>();
+        outsideClown.transform.SetParent(outsideClownPosition, false);
+        outsideClown.transform.localPosition = Vector3.zero;
+        outsideClown.transform.localRotation = Quaternion.identity;
         outsideClown.onHit += ClownFound;
+    }
+
+    void StartTransition()
+    {
+        transitioning = true;
     }
 
     void ResetAllTimers()
@@ -193,5 +214,30 @@ public class LevelManager : MonoBehaviour
     void Death()
     {
         playerObject.GetComponent<CharacterController>().enabled = false;
+        playerObject.Fade(false);
+        StartCoroutine(DeathCoroutine());
+    }
+
+    IEnumerator DeathCoroutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        PlacePlayer(darkSphere);
+    }
+
+    IEnumerator TitleCardCoroutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        PlacePlayer(darkSphere);
+        titleCard.SetActive(true);
+
+        yield return new WaitForSeconds(5f);
+        playerObject.Fade(false);
+        titleCard.SetActive(false);
+
+        gameStarted = true;
+
+        StartRound();
     }
 }
