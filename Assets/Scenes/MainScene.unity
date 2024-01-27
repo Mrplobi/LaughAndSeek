@@ -5699,6 +5699,7 @@ GameObject:
   m_Component:
   - component: {fileID: 371279501}
   - component: {fileID: 371279502}
+  - component: {fileID: 371279503}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -5733,7 +5734,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 86
   m_InnerSpotAngle: 21.80208
@@ -5783,6 +5784,20 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &371279503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371279500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a49b3b609389714e8873371439a3a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDelay: 0.1
+  maxDelay: 1
 --- !u!1001 &379263836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21192,6 +21207,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: de6fe953665a0194fa4aa8958a0b7866, type: 2}
   playerStart: {fileID: 990094404}
   playerObject: {fileID: 287839935}
+  globalDeathTime: 120
+  darknessDeathTime: 30
   menuStart: {fileID: 1835496607}
   outsideLights: {fileID: 1118559294}
   outsideClown: {fileID: 2060932899}
