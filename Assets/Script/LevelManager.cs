@@ -19,9 +19,53 @@ public class LevelManager : MonoBehaviour
 
     int currentLevel = 0;
 
+    bool transitioning = false;
+    bool inDarkness = false;
+
+    #region Death
+    float globalDeathTimer = 0;
+    [SerializeField]
+    float globalDeathTime = 120;
+    float darknessDeathTimer = 0;
+    [SerializeField]
+    float darknessDeathTime = 30;
+    #endregion
+
+
+    #region MainMenu
+    bool gameStarted = false;
+    bool lightOn = false;
+    [SerializeField]
+    Transform menuStart;
+    [SerializeField]
+    GameObject outsideLights;
+    [SerializeField]
+    Clown outsideClown;
+    [SerializeField]
+    GameObject flashlightInstruction;
+    [SerializeField]
+    GameObject gameInstructions;
+    #endregion
+
     private void Start()
     {
-        StartRound();
+        SetUpMainMenu();
+    }
+
+    private void Update()
+    {
+        if(gameStarted && !transitioning)
+        {
+            if(inDarkness)
+            {
+                darknessDeathTimer += Time.deltaTime;
+            }
+            globalDeathTimer += Time.deltaTime;
+            if( darknessDeathTimer > darknessDeathTime || globalDeathTimer > globalDeathTime )
+            {
+                //DED
+            }
+        }
     }
 
     void StartRound()
@@ -29,8 +73,6 @@ public class LevelManager : MonoBehaviour
         if (currentLevel >= levelScripts.Count)
             return;
 
-        playerObject.transform.position = playerStart.position;
-        playerObject.transform.rotation = playerStart.rotation;
 
         if(_clown == null)
         {
@@ -40,6 +82,16 @@ public class LevelManager : MonoBehaviour
 
         var spawn = levelScripts[currentLevel].GetRandomSpawn();
         SpawnClown(spawn);
+
+        StartCoroutine(StartRoundCoroutine());
+    }
+
+    IEnumerator StartRoundCoroutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        PlacePlayer(playerStart);
+
     }
 
     public void SpawnClown(SpawnInfo spawn)
@@ -49,7 +101,14 @@ public class LevelManager : MonoBehaviour
 
     public void ClownFound()
     {
-        currentLevel++;
+        if(gameStarted)
+        {
+            currentLevel++;
+        }
+        else
+        {
+            gameStarted = true;
+        }
         StartRound();
     }
 
@@ -57,16 +116,77 @@ public class LevelManager : MonoBehaviour
     {
         if (isOn)
         {
-            PlayLaugh();
+            StopLaugh();
+            inDarkness = false;
+            darknessDeathTimer = 0;
+            if(!gameStarted && !lightOn)
+            {
+                lightOn = true;
+                SetUpTutorial();
+            }
         }
         else
         {
-
+            PlayLaugh();
+            if(gameStarted)
+            {
+                inDarkness = true;
+            }
         }
     }
 
     private void PlayLaugh()
     {
-        _clown.PlayLaugh();
+        if(!gameStarted && outsideClown != null)
+        {
+            outsideClown.PlayLaugh();
+        }
+        else if(_clown != null)
+        {
+            _clown.PlayLaugh();
+        }
+    }
+
+    private void StopLaugh()
+    {
+        if (!gameStarted && outsideClown != null)
+        {
+            outsideClown.StopLaugh();
+        }
+        else if (_clown != null)
+        {
+            _clown.StopLaugh();
+        }
+    }
+
+    private void PlacePlayer(Transform newPlace)
+    {
+        playerObject.transform.position = newPlace.position;
+        playerObject.transform.rotation = newPlace.rotation;
+        playerObject.Fade(true);
+    }
+
+    void SetUpMainMenu()
+    {
+        PlacePlayer(menuStart);
+        flashlightInstruction.SetActive(true);
+        outsideLights.SetActive(true);
+        outsideClown.gameObject.SetActive(false);
+        gameInstructions.SetActive(false);
+    }
+
+    void SetUpTutorial()
+    {
+        flashlightInstruction.SetActive(false);
+        outsideLights.SetActive(false);
+        gameInstructions.SetActive(true);
+        outsideClown.gameObject.SetActive(true);
+        outsideClown.onHit += ClownFound;
+    }
+
+    void ResetAllTimers()
+    {
+        globalDeathTimer = 0;
+        darknessDeathTimer = 0;
     }
 }

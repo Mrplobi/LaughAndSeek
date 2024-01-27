@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     //Event to trigger laugh when light is turned off
     public UnityEvent<bool> flashlightChanged;
+    public UnityEvent transitionStart;
 
     [SerializeField]
     Light lightCone;
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     Material fadeMat;
 
-    bool isActive = true;
+    bool isActive = false;
 
     bool hittingClown = false;
 
@@ -43,8 +44,7 @@ public class Player : MonoBehaviour
             clickSound.clip = isActive? onSound : offSound;
             clickSound.Play();
 
-            if (isActive) flashlightChanged.Invoke(true); 
-            else flashlightChanged.Invoke(false);
+            flashlightChanged.Invoke(isActive);
         }
 
         if (!isActive || turningOff) return;
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
             if (validateTimer > validateTime)
             {
                 Debug.LogWarning(validateTimer);
-                TurnOffAnim(hit.collider.GetComponent<Clown>());
+                TurnOffAnim(hit.collider.GetComponentInParent<Clown>());
             }
         }
         else
@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
 
     public void TurnOffAnim(Clown clown)
     {
+        transitionStart.Invoke();
         turningOff = true;
         Sequence sequence = DOTween.Sequence();
         sequence.Append(lightCone.DOIntensity(0, 0.2f).SetEase(Ease.OutQuart));
@@ -93,6 +94,8 @@ public class Player : MonoBehaviour
 
     public void EndLevel(Clown clown)
     {
+        lightCone.intensity = 1;
+        lightParent.SetActive(false);
         Fade(false);
         clown.Hit();
     }
@@ -101,11 +104,13 @@ public class Player : MonoBehaviour
     {
         if(fadeIn)
         {
-            fadeMat.DOColor(Color.clear, 0.2f).SetEase(Ease.OutQuart);
+            turningOff = false;
+            lightParent.SetActive(isActive);
+            fadeMat.DOColor(Color.clear, 0.5f).SetEase(Ease.OutQuart);
         }
         else
         {
-            fadeMat.DOColor(Color.black, 0.2f).SetEase(Ease.OutQuart);
+            fadeMat.DOColor(Color.black, 0.5f).SetEase(Ease.OutQuart);
         }
     }
 }

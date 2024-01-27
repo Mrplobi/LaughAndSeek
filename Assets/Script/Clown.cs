@@ -17,10 +17,15 @@ public class Clown : MonoBehaviour
     public void Hit()
     {
         onHit.Invoke();
+        Destroy(gameObject);
     }
 
     public void PlayLaugh()
     {
-        this.GetComponentInChildren<AudioSource>().Play();  
+        this.GetComponentInChildren<AudioSource>().Play();
+    }
+    public void StopLaugh()
+    {
+        this.GetComponentInChildren<AudioSource>().Stop();
     }
 }
