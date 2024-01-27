@@ -16,8 +16,6 @@ public class Clown : MonoBehaviour
     }
     public void Hit()
     {
-        gameObject.SetActive(false);
         onHit.Invoke();
-        Destroy(this.gameObject);
     }
 }

@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Flashlight : MonoBehaviour
 {
     [SerializeField]
-    GameObject lightCone;
+    Light lightCone;
+    [SerializeField]
+    GameObject lightParent;
     [SerializeField]
     AudioSource clickSound;
     [SerializeField]
@@ -23,17 +26,19 @@ public class Flashlight : MonoBehaviour
     float validateTime = 0.5f;
     float validateTimer = 0;
 
+    bool turningOff = false;
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.L) || OVRInput.GetDown(OVRInput.Button.One))
+        if(!turningOff && (Input.GetKeyDown(KeyCode.L) || OVRInput.GetDown(OVRInput.Button.One)))
         {
             isActive = !isActive;
-            lightCone.SetActive(isActive);
+            lightParent.SetActive(isActive);
             clickSound.clip = isActive? onSound : offSound;
             clickSound.Play();
         }
 
-        if (!isActive) return;
+        if (!isActive || turningOff) return;
         
         RaycastHit hit;
         Physics.Raycast(RaycastStart.position, RaycastStart.forward, out hit);
@@ -54,12 +59,32 @@ public class Flashlight : MonoBehaviour
             if (validateTimer > validateTime)
             {
                 Debug.LogWarning(validateTimer);
-                hit.collider.GetComponentInParent<Clown>().Hit();
+                TurnOffAnim(hit.collider.GetComponent<Clown>());
             }
         }
         else
         {
             validateTimer = 0;
         }
+    }
+
+    public void TurnOffAnim(Clown clown)
+    {
+        turningOff = true;
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(lightCone.DOIntensity(0, 0.2f).SetEase(Ease.OutQuart));
+        sequence.Append(lightCone.DOIntensity(1, 0.3f).SetEase(Ease.OutQuart));
+        sequence.AppendInterval(0.3f);
+        sequence.Append(lightCone.DOIntensity(0, 0.4f).SetEase(Ease.OutQuart));
+        sequence.Append(lightCone.DOIntensity(1, 0.2f).SetEase(Ease.OutQuart));
+        sequence.Append(lightCone.DOIntensity(0, 0.2f).SetEase(Ease.OutQuart));
+        sequence.OnComplete(() => EndLevel(clown));
+        sequence.Play();
+    }
+
+    public void EndLevel(Clown clown)
+    {
+        //Fade out
+        clown.Hit();
     }
 }

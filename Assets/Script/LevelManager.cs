@@ -17,6 +17,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     GameObject playerObject;
 
+    Flashlight light;
+
     int currentLevel = 0;
 
     private void Start()
