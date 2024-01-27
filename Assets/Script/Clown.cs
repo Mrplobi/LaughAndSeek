@@ -10,7 +10,7 @@ public class Clown : MonoBehaviour
     public void Spawn(SpawnInfo spawn)
     {
         var spawnGO = GameObject.Find(spawn.spawnName);
-        transform.SetParent(spawnGO.transform);
+        transform.SetParent(spawnGO.transform, false);
         transform.localPosition = spawn.spawnOffset;
         transform.localScale = spawn.spawnScale;
     }
