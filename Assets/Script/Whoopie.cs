@@ -14,7 +14,7 @@ public class Whoopie : MonoBehaviour
         source = GetComponent<AudioSource>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         if (source != null)
         {
