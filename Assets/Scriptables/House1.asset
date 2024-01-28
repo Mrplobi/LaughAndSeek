@@ -34,3 +34,18 @@ MonoBehaviour:
   - spawnName: RDCPainting
     spawnOffset: {x: -0.012, y: -0.0734, z: 0}
     spawnScale: {x: 0.03, y: 0.03, z: 0.03}
+  - spawnName: RDCCeiling
+    spawnOffset: {x: 0, y: 0, z: 0}
+    spawnScale: {x: 0.5, y: 0.5, z: 0.5}
+  - spawnName: 1FWall
+    spawnOffset: {x: 0, y: 0, z: 0}
+    spawnScale: {x: 1.7, y: 0.5, z: 0.1}
+  - spawnName: 1FFireplace
+    spawnOffset: {x: 0, y: 0, z: 0}
+    spawnScale: {x: 0.15, y: 0.15, z: 0.15}
+  - spawnName: 1FComputer
+    spawnOffset: {x: 0, y: 0, z: 0}
+    spawnScale: {x: 0.04, y: 0.04, z: 0.01}
+  - spawnName: 1FWindow
+    spawnOffset: {x: 0.074, y: -0.845, z: 0}
+    spawnScale: {x: 0.5, y: 0.5, z: 0.5}
