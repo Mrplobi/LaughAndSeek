@@ -22622,10 +22622,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 33898b93afdae6f4c8caff6b171ec9b4, type: 2}
   - {fileID: 11400000, guid: 376962f699b6c1f4492dce14a917544f, type: 2}
   traps:
-  - {fileID: 1892917174934278219}
   - {fileID: 1538426300}
   - {fileID: 623732260}
-  - {fileID: 1526528683}
   - {fileID: 671887219}
   - {fileID: 1731754520}
   whoopie: {fileID: 1526528683}

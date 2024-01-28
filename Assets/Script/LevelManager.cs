@@ -136,6 +136,11 @@ public class LevelManager : MonoBehaviour
         }
 
         var spawn = levelScripts[currentLevel].GetRandomSpawn();
+        if(spawn == null)
+        {
+            Debug.LogError("NoSpawnFOund");
+        }
+        Debug.LogWarning(spawn.spawnName);
         SpawnClown(spawn);
 
 

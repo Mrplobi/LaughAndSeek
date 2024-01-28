@@ -25,7 +25,7 @@ public class Clown : MonoBehaviour
     public void Hit()
     {
         onHit.Invoke();
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     public void PlayDarknessLaugh()
