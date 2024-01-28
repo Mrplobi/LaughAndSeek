@@ -2,8 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpscareTrap : MonoBehaviour
+public class JumpscareTrap : Trap
 {
+    public override void Activate()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public override void DeActivate()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public override void Hide()
+    {
+        DeActivate();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.LogWarning("Entered Collision");
@@ -12,6 +27,6 @@ public class JumpscareTrap : MonoBehaviour
         {
             player.Jumpscare();
         }
-        gameObject.SetActive(false);
+        DeActivate();
     }
 }
