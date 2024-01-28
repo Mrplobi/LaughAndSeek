@@ -26,14 +26,34 @@ public class LevelManager : MonoBehaviour
     bool transitioning = false;
     bool inDarkness = false;
 
+    #region Sound Variables
+    [Header("Sound")]
+    [SerializeField]
+    AudioSource globalGameVoice;
+    [SerializeField]
+    AudioSource RdmSFX;
+
+    [SerializeField]
+    List<AudioClip> deathClips;
+    [SerializeField]
+    List<AudioClip> winClips;
+    [SerializeField]
+    List<AudioClip> welcomeClips;
+    [SerializeField]
+    List<AudioClip> halfTimeClips;
+    [SerializeField]
+    List<AudioClip> countdownClips;
+    #endregion
+
 
     #region Death
     float globalDeathTimer = 0;
+    [Header("Death")]
     [SerializeField]
-    float globalDeathTime = 20;
+    float globalDeathTime = 60;
     float darknessDeathTimer = 0;
     [SerializeField]
-    float darknessDeathTime = 30;
+    float darknessDeathTime = 10;
     [SerializeField]
     Animator deathClown;
     #endregion
@@ -44,6 +64,7 @@ public class LevelManager : MonoBehaviour
     bool lightOn = false;
     bool titleCardSeen = false;
 
+    [Header("Menu")]
     [SerializeField]
     Transform menuStart;
     [SerializeField]
@@ -76,10 +97,12 @@ public class LevelManager : MonoBehaviour
                 darknessDeathTimer += Time.deltaTime;
             }
             globalDeathTimer += Time.deltaTime;
-            Debug.LogWarning("Death time " + globalDeathTimer);
             if( darknessDeathTimer > darknessDeathTime || globalDeathTimer > globalDeathTime )
             {
-                Debug.LogWarning("DED");
+                if(_clown)
+                {
+                    _clown.StopLaugh();
+                }
                 gameStarted = false;
                 Death();
             }
@@ -282,4 +305,22 @@ public class LevelManager : MonoBehaviour
         currentLevel = 0;
         SetUpMainMenu();
     }
+
+
+
+    #region Sound Methods
+
+    void PlayGlobalSound(AudioClip clip)
+    {
+        globalGameVoice.clip = clip;
+        globalGameVoice.Play();
+    }
+
+    void PlayRandomSFX(AudioClip clip)
+    {
+        RdmSFX.clip = clip;
+        RdmSFX.Play();
+    }
+
+    #endregion
 }
