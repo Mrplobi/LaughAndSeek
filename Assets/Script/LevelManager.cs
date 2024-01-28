@@ -216,9 +216,12 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void PlayTrapLaugh()
+    private void PlayTrapLaugh()
     {
-
+        if(_clown != null)
+        {
+            _clown.PlayTrapLaugh();
+        }
     }
 
     private void PlacePlayer(Transform newPlace)

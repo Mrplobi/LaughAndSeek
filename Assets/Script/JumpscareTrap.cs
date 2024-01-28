@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class JumpscareTrap : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Player player = collision.gameObject.GetComponent<Player>();
+        Debug.LogWarning("Entered Collision");
+        Player player = other.gameObject.GetComponentInParent<Player>();
         if (player != null)
         {
             player.Jumpscare();

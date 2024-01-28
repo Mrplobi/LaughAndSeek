@@ -130,6 +130,7 @@ public class Player : MonoBehaviour
     public void Jumpscare()
     {
         animator.SetTrigger("Jumpscare");
+        onJumpscare.Invoke();
     }
 
     public void Reset()
