@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -111,8 +110,13 @@ public class LevelManager : MonoBehaviour
 
     void StartRound()
     {
+        if(currentLevel == 0)
+        {
+            PlayGlobalSound(welcomeClips);
+        }
         if (currentLevel >= levelScripts.Count)
         {
+            PlayGlobalSound(winClips);
             StartCoroutine(WinCoroutine());
             return;
         }
@@ -256,18 +260,23 @@ public class LevelManager : MonoBehaviour
     {
         playerObject.GetComponent<CharacterController>().enabled = false;
         playerObject.Fade(false);
+        PlayGlobalSound(deathClips);
         StartCoroutine(DeathCoroutine());
     }
 
     IEnumerator DeathCoroutine()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1);
 
         PlacePlayer(darkSphere);
 
         deathClown.SetTrigger("Dead");
 
         yield return new WaitForSeconds(4.5F);
+
+        playerObject.Fade(false);
+
+        yield return new WaitForSeconds(4);
 
         ReturnToMenu();
     }
@@ -291,7 +300,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator WinCoroutine()
     {        
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(globalGameVoice.clip.length);
 
         ReturnToMenu();
     }
@@ -310,8 +319,9 @@ public class LevelManager : MonoBehaviour
 
     #region Sound Methods
 
-    void PlayGlobalSound(AudioClip clip)
+    void PlayGlobalSound(List<AudioClip> clips)
     {
+        var clip = clips[Random.Range(0, clips.Count)];
         globalGameVoice.clip = clip;
         globalGameVoice.Play();
     }

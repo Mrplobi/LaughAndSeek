@@ -11272,8 +11272,8 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 0.4009434, b: 0.4009434, a: 1}
+  m_Intensity: 1.66
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -21972,14 +21972,23 @@ MonoBehaviour:
   playerStart: {fileID: 990094404}
   playerObject: {fileID: 287839935}
   darkSphere: {fileID: 1328438840}
-  globalGameVoice: {fileID: 0}
-  RdmSFX: {fileID: 0}
-  deathClips: []
-  winClips: []
-  welcomeClips: []
-  halfTimeClips: []
+  globalGameVoice: {fileID: 221541974}
+  RdmSFX: {fileID: 584766439}
+  deathClips:
+  - {fileID: 8300000, guid: fbaccd7536b43d64288a37f88f545baa, type: 3}
+  - {fileID: 8300000, guid: a0c33a16ec25c454f92d307a9e7ea264, type: 3}
+  - {fileID: 8300000, guid: 9320533366841484b9eda8884dd24f4c, type: 3}
+  winClips:
+  - {fileID: 8300000, guid: d6b3d129b7b285d46bd85f06843f37a0, type: 3}
+  - {fileID: 8300000, guid: 395ef917a94e8ee4badfc21361305f91, type: 3}
+  welcomeClips:
+  - {fileID: 8300000, guid: 1654fb6cdd3324e4db7c737fc789d3db, type: 3}
+  halfTimeClips:
+  - {fileID: 8300000, guid: 1ada58c9007374145af12bb904bbeb49, type: 3}
+  - {fileID: 8300000, guid: 6bee02f38bdec644cb9a7de2567ef512, type: 3}
+  - {fileID: 8300000, guid: 6253e8dfe94231d44b3653000ec21f1f, type: 3}
   countdownClips: []
-  globalDeathTime: 10
+  globalDeathTime: 120
   darknessDeathTime: 30
   deathClown: {fileID: 1152201618}
   menuStart: {fileID: 1835496607}
