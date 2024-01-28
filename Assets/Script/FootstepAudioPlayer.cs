@@ -13,6 +13,11 @@ public class FootstepAudioPlayer : MonoBehaviour
 
     void Update()
     {
+        if(!characterController.enabled && isSoundPlaying)
+        {
+            audioSourceFootsteps.Stop();
+            isSoundPlaying = false;
+        }
         if (characterController.velocity.magnitude >= 0.2f && isSoundPlaying==false)
         {
             audioSourceFootsteps.Play();

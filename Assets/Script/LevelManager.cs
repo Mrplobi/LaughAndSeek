@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class LevelManager : MonoBehaviour
 {
@@ -29,10 +30,12 @@ public class LevelManager : MonoBehaviour
     #region Death
     float globalDeathTimer = 0;
     [SerializeField]
-    float globalDeathTime = 120;
+    float globalDeathTime = 20;
     float darknessDeathTimer = 0;
     [SerializeField]
     float darknessDeathTime = 30;
+    [SerializeField]
+    Animator deathClown;
     #endregion
 
 
@@ -73,8 +76,11 @@ public class LevelManager : MonoBehaviour
                 darknessDeathTimer += Time.deltaTime;
             }
             globalDeathTimer += Time.deltaTime;
+            Debug.LogWarning("Death time " + globalDeathTimer);
             if( darknessDeathTimer > darknessDeathTime || globalDeathTimer > globalDeathTime )
             {
+                Debug.LogWarning("DED");
+                gameStarted = false;
                 Death();
             }
         }
@@ -232,9 +238,15 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator DeathCoroutine()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
 
         PlacePlayer(darkSphere);
+
+        deathClown.SetTrigger("Dead");
+
+        yield return new WaitForSeconds(4.5F);
+
+        ReturnToMenu();
     }
 
     IEnumerator TitleCardCoroutine()
@@ -258,6 +270,11 @@ public class LevelManager : MonoBehaviour
     {        
         yield return new WaitForSeconds(0.2f);
 
+        ReturnToMenu();
+    }
+
+    void ReturnToMenu()
+    {
         gameStarted = false;
         lightOn = false;
         playerObject.Reset();
