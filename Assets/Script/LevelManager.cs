@@ -216,7 +216,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void PlayTrapLaugh()
+    public void PlayTrapLaugh()
     {
         if(_clown != null)
         {
