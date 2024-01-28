@@ -13,6 +13,9 @@ public class LevelManager : MonoBehaviour
     List<LevelScriptable> levelScripts;
 
     [SerializeField]
+    List<Trap> traps;
+
+    [SerializeField]
     Transform playerStart;
     [SerializeField]
     Player playerObject;
@@ -131,6 +134,31 @@ public class LevelManager : MonoBehaviour
         var spawn = levelScripts[currentLevel].GetRandomSpawn();
         SpawnClown(spawn);
 
+
+        // Handle traps 
+        Trap trap;
+        List<int> usedIndexes = new List<int>();
+        // Activate 2 random ones
+        while (usedIndexes.Count!=2)
+        {
+            int index = Random.Range(0, traps.Count);
+            if (!usedIndexes.Contains(index))
+            {
+                trap = traps[index];
+                trap.Activate();
+                usedIndexes.Add(index);
+            }     
+        }
+        // Hide the others
+        for (int i=0; i<traps.Count; i++)
+        {
+            if (!usedIndexes.Contains(i))
+            {
+                traps[i].Hide();
+            }
+        }
+        
+       
         StartCoroutine(StartRoundCoroutine());
     }
 
