@@ -4559,6 +4559,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2767017778036468839, guid: e5c997c1ee49faf4c96f6d448a4e23ee, type: 3}
+      propertyPath: validateTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2767017778036468839, guid: e5c997c1ee49faf4c96f6d448a4e23ee, type: 3}
       propertyPath: flashlightChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
