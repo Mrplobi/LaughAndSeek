@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,13 @@ public class Clown : MonoBehaviour
 {
     public delegate void HitEvent();
     public HitEvent onHit;
+
+    [SerializeField]
+    AudioSource darknessLaugh;
+    [SerializeField]
+    AudioSource trapLaugh;
+    [SerializeField]
+    List<AudioClip> trapLaughs;
 
     public void Spawn(SpawnInfo spawn)
     {
@@ -20,12 +28,26 @@ public class Clown : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void PlayLaugh()
+    public void PlayDarknessLaugh()
     {
-        this.GetComponentInChildren<AudioSource>().Play();
+        darknessLaugh.Play();
     }
-    public void StopLaugh()
+    public void StopDarknessLaugh()
     {
-        this.GetComponentInChildren<AudioSource>().Stop();
+        darknessLaugh.Stop();
+    }
+
+    public void PlayTrapLaugh()
+    {
+        if (trapLaugh.isPlaying) return;
+        AudioClip clip = trapLaughs[Random.Range(0, trapLaughs.Count)];
+        trapLaugh.clip = clip;
+        trapLaugh.Play();
+    }
+
+    public void StopAllLaugh()
+    {
+        darknessLaugh.Stop();
+        trapLaugh.Stop();
     }
 }

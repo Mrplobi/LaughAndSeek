@@ -85,6 +85,7 @@ public class LevelManager : MonoBehaviour
     {
         SetUpMainMenu();
         playerObject.transitionStart.AddListener(StartTransition);
+        playerObject.onJumpscare.AddListener(StartTransition);
     }
 
     private void Update()
@@ -100,7 +101,7 @@ public class LevelManager : MonoBehaviour
             {
                 if(_clown)
                 {
-                    _clown.StopLaugh();
+                    _clown.StopDarknessLaugh();
                 }
                 gameStarted = false;
                 Death();
@@ -137,11 +138,9 @@ public class LevelManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
-        ResetAllTimers();
         transitioning = false;
         PlacePlayer(playerStart);
         playerObject.GetComponent<CharacterController>().enabled = true;
-        ResetAllTimers();
     }
 
     public void SpawnClown(SpawnInfo spawn)
@@ -174,7 +173,7 @@ public class LevelManager : MonoBehaviour
     {
         if (isOn)
         {
-            StopLaugh();
+            StopDarknessLaugh();
             inDarkness = false;
             darknessDeathTimer = 0;
             if(!gameStarted && !lightOn)
@@ -185,7 +184,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            PlayLaugh();
+            PlayDarknessLaugh();
             if(gameStarted)
             {
                 inDarkness = true;
@@ -193,28 +192,33 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void PlayLaugh()
+    private void PlayDarknessLaugh()
     {
         if(!gameStarted && outsideClown != null)
         {
-            outsideClown.PlayLaugh();
+            outsideClown.PlayDarknessLaugh();
         }
         else if(_clown != null)
         {
-            _clown.PlayLaugh();
+            _clown.PlayDarknessLaugh();
         }
     }
 
-    private void StopLaugh()
+    private void StopDarknessLaugh()
     {
         if (!gameStarted && outsideClown != null)
         {
-            outsideClown.StopLaugh();
+            outsideClown.StopDarknessLaugh();
         }
         else if (_clown != null)
         {
-            _clown.StopLaugh();
+            _clown.StopDarknessLaugh();
         }
+    }
+
+    public void PlayTrapLaugh()
+    {
+
     }
 
     private void PlacePlayer(Transform newPlace)

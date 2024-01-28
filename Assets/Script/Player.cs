@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     //Event to trigger laugh when light is turned off
     public UnityEvent<bool> flashlightChanged;
     public UnityEvent transitionStart;
+    public UnityEvent onJumpscare;
 
     [SerializeField]
     Light lightCone;
@@ -24,10 +25,13 @@ public class Player : MonoBehaviour
     AudioClip offSound;
     [SerializeField]
     Material fadeMat;
+    [SerializeField]
+    Animator animator;
 
     bool isActive = false;
 
     bool hittingClown = false;
+    Clown currentTarget = null;
 
     [SerializeField]
     float validateTime = 0.5f;
@@ -55,10 +59,15 @@ public class Player : MonoBehaviour
         if (hit.collider != null && hit.collider.tag == "Clown")
         {
             hittingClown = true;
+            if(currentTarget == null)
+            {
+                currentTarget = hit.collider.GetComponentInParent<Clown>();
+            }
         }
         else
         {
             hittingClown = false;
+            currentTarget = null;
         }
 
         if(hittingClown)
@@ -67,8 +76,12 @@ public class Player : MonoBehaviour
             Debug.LogWarning(validateTimer);
             if (validateTimer > validateTime)
             {
-                Debug.LogWarning(validateTimer);
-                TurnOffAnim(hit.collider.GetComponentInParent<Clown>());
+                Debug.LogWarning(validateTimer); 
+                if (currentTarget == null)
+                {
+                    currentTarget = hit.collider.GetComponentInParent<Clown>();
+                }
+                TurnOffAnim(currentTarget);
             }
         }
         else
@@ -112,6 +125,11 @@ public class Player : MonoBehaviour
         {
             fadeMat.DOColor(Color.black, 0.2f).SetEase(Ease.OutQuart);
         }
+    }
+
+    public void Jumpscare()
+    {
+        animator.SetTrigger("Jumpscare");
     }
 
     public void Reset()
