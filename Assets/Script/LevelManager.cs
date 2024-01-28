@@ -31,6 +31,8 @@ public class LevelManager : MonoBehaviour
     AudioSource globalGameVoice;
     [SerializeField]
     AudioSource RdmSFX;
+    [SerializeField]
+    AudioSource heartbeat;
 
     [SerializeField]
     List<AudioClip> deathClips;
@@ -40,8 +42,6 @@ public class LevelManager : MonoBehaviour
     List<AudioClip> welcomeClips;
     [SerializeField]
     List<AudioClip> halfTimeClips;
-    [SerializeField]
-    List<AudioClip> countdownClips;
     #endregion
 
 
@@ -176,6 +176,7 @@ public class LevelManager : MonoBehaviour
             StopDarknessLaugh();
             inDarkness = false;
             darknessDeathTimer = 0;
+            heartbeat.Stop();
             if(!gameStarted && !lightOn)
             {
                 lightOn = true;
@@ -185,6 +186,7 @@ public class LevelManager : MonoBehaviour
         else
         {
             PlayDarknessLaugh();
+            heartbeat.Play();
             if(gameStarted)
             {
                 inDarkness = true;
