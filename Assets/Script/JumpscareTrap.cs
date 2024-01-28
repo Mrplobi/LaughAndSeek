@@ -12,5 +12,6 @@ public class JumpscareTrap : MonoBehaviour
         {
             player.Jumpscare();
         }
+        gameObject.SetActive(false);
     }
 }

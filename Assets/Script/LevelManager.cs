@@ -85,7 +85,7 @@ public class LevelManager : MonoBehaviour
     {
         SetUpMainMenu();
         playerObject.transitionStart.AddListener(StartTransition);
-        playerObject.onJumpscare.AddListener(StartTransition);
+        playerObject.onJumpscare.AddListener(PlayTrapLaugh);
     }
 
     private void Update()
