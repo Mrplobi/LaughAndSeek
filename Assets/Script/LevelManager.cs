@@ -14,6 +14,10 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField]
     List<Trap> traps;
+    [SerializeField]
+    Trap whoopie;
+    [SerializeField]
+    Trap jumpscare;
 
     [SerializeField]
     Transform playerStart;
@@ -137,9 +141,13 @@ public class LevelManager : MonoBehaviour
 
         // Handle traps 
         Trap trap;
+
+        whoopie.Activate();
+        jumpscare.Activate();
+
         List<int> usedIndexes = new List<int>();
         // Activate 2 random ones
-        while (usedIndexes.Count!=2)
+        while (usedIndexes.Count!=1)
         {
             int index = Random.Range(0, traps.Count);
             if (!usedIndexes.Contains(index))
@@ -156,8 +164,7 @@ public class LevelManager : MonoBehaviour
             {
                 traps[i].Hide();
             }
-        }
-        
+        }        
        
         StartCoroutine(StartRoundCoroutine());
     }
