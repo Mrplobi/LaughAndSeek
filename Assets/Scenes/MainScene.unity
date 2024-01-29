@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.55
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.015999475, g: 0.01644282, b: 0.016441537, a: 0.55}
+  m_IndirectSpecularColor: {r: 0.01594339, g: 0.016507607, b: 0.016509946, a: 0.55}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -27632,6 +27632,10 @@ PrefabInstance:
     - target: {fileID: 6121009425805687584, guid: 8f92c88f27cf6dd459899dfebdad33a7, type: 3}
       propertyPath: m_Name
       value: "House4_\u04211"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121009425805687584, guid: 8f92c88f27cf6dd459899dfebdad33a7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6387817270244259159, guid: 8f92c88f27cf6dd459899dfebdad33a7, type: 3}
       propertyPath: m_LocalRotation.w
