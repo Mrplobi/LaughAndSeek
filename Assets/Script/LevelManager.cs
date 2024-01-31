@@ -271,6 +271,10 @@ public class LevelManager : MonoBehaviour
         playerObject.GetComponent<CharacterController>().enabled = false;
         playerObject.transform.position = newPlace.position;
         playerObject.transform.rotation = newPlace.rotation;
+        if (playerObject.GetComponent<PCCharacter>() != null)
+        {
+            playerObject.GetComponent<PCCharacter>().AllignPlayer(newPlace);
+        }
         playerObject.Fade(true);
     }
 
@@ -358,7 +362,7 @@ public class LevelManager : MonoBehaviour
     {
         gameStarted = false;
         lightOn = false;
-        playerObject.Reset();
+        playerObject.ResetPlayer();
         ResetAllTimers();
         currentLevel = 0;
         SetUpMainMenu();

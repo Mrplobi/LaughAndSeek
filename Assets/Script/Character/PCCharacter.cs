@@ -18,6 +18,11 @@ public class PCCharacter : MonoBehaviour
     private float yaw = 5f;
     private float pitch = 5f;
 
+    [SerializeField]
+    Transform flashlightTarget;
+    [SerializeField]
+    Transform flashlight;
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -30,28 +35,44 @@ public class PCCharacter : MonoBehaviour
 
     void Update()
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
+        if(controller.enabled)
         {
-            playerVelocity.y = 0f;
+            groundedPlayer = controller.isGrounded;
+            if (groundedPlayer && playerVelocity.y < 0)
+            {
+                playerVelocity.y = 0f;
+            }
+            var projectedForward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
+
+            Vector3 move = projectedForward * Input.GetAxis("Vertical") + cam.transform.right.normalized * Input.GetAxis("Horizontal");
+            controller.Move(move * Time.deltaTime * playerSpeed);
+
+            // Changes the height position of the player..
+            if (Input.GetButtonDown("Jump") && groundedPlayer)
+            {
+                playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            }
+
+            playerVelocity.y += gravityValue * Time.deltaTime;
+            controller.Move(playerVelocity * Time.deltaTime);
+
         }
-        var projectedForward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
 
-        Vector3 move = projectedForward * Input.GetAxis("Vertical") + cam.transform.right.normalized * Input.GetAxis("Horizontal");        
-        controller.Move(move * Time.deltaTime * playerSpeed);
-
-        // Changes the height position of the player..
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        }
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        Debug.Log("X : " + Input.GetAxis("Mouse X"));
+        Debug.Log("Y : " + Input.GetAxis("Mouse Y"));
 
         yaw += speedH * Input.GetAxis("Mouse X");
         pitch -= speedV * Input.GetAxis("Mouse Y");
 
-        cam.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+        transform.localEulerAngles = new Vector3(0, yaw, 0.0f);
+        cam.transform.localEulerAngles = new Vector3(pitch, 0, 0.0f);
+
+        flashlight.LookAt(flashlightTarget);
+    }
+
+    public void AllignPlayer(Transform newTransform)
+    {
+        yaw = newTransform.localEulerAngles.y;
+        pitch = newTransform.localEulerAngles.x;
     }
 }

@@ -39,9 +39,14 @@ public class Player : MonoBehaviour
 
     bool turningOff = false;
 
+    private void Start()
+    {
+        fadeMat.color = Color.black;
+    }
+
     void Update()
     {
-        if(!turningOff && (Input.GetKeyDown(KeyCode.L) || OVRInput.GetDown(OVRInput.Button.One)))
+        if (!turningOff && (Input.GetKeyDown(KeyCode.L) || OVRInput.GetDown(OVRInput.Button.One) || Input.GetMouseButtonDown(0)))
         {
             isActive = !isActive;
             lightParent.SetActive(isActive);
@@ -133,7 +138,7 @@ public class Player : MonoBehaviour
         onJumpscare.Invoke();
     }
 
-    public void Reset()
+    public void ResetPlayer()
     {
         isActive = false;
         lightParent.SetActive(false);

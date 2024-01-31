@@ -21,7 +21,7 @@ public class JumpscareTrap : Trap
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.LogWarning("Entered Collision");
+        Debug.LogWarning("Entered Collision : " + other.name);
         Player player = other.gameObject.GetComponentInParent<Player>();
         if (player != null)
         {
